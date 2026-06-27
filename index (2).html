@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writers Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --navy: #1a1a2e;
+            --cream: #f5f3f0;
+            --gold: #c9a875;
+            --text-dark: #2c2c2c;
+            --text-light: #6b6b6b;
+            --white: #ffffff;
+            --border-light: #e8e3de;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--navy);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--cream);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--navy);
+            color: var(--cream);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '"';
+            position: absolute;
+            left: 2rem;
+            top: 1rem;
+            font-size: 8rem;
+            opacity: 0.1;
+            font-family: Georgia, serif;
+            color: var(--gold);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-quote {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .hero-byline {
+            font-size: 1.1rem;
+            color: var(--cream);
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.2rem;
+            color: var(--navy);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-title::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .sample-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-light);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sample-card::before {
+            content: '"';
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 3rem;
+            opacity: 0.05;
+            font-family: Georgia, serif;
+        }
+
+        .sample-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+            border-color: var(--gold);
+        }
+
+        .sample-genre {
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .sample-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.4rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .sample-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            min-height: 60px;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .read-more::after {
+            content: ' →';
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Fan Fiction Section */
+        .fan-fiction-section {
+            padding: 5rem 0;
+            background-color: var(--cream);
+        }
+
+        .fan-fiction-intro {
+            background-color: var(--white);
+            padding: 2rem;
+            border-left: 4px solid var(--gold);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .fan-fiction-intro p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: var(--gold);
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--navy);
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 168, 117, 0.3);
+        }
+
+        .fan-fiction-badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--navy);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Founder Profile Section */
+        .founder-section {
+            background: linear-gradient(135deg, var(--navy) 0%, rgba(26, 26, 46, 0.95) 100%);
+            color: var(--cream);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .founder-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .founder-section::before {
+            content: '◆';
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 6rem;
+            opacity: 0.08;
+            color: var(--gold);
+        }
+
+        .founder-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-subtitle {
+            font-size: 0.95rem;
+            color: var(--cream);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .founder-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .founder-story p {
+            color: var(--cream);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .founder-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .stat-box {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-left: 3px solid var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            color: var(--cream);
+            font-weight: 600;
+        }
+
+        /* Bio Section */
+        .bio-section {
+            background-color: var(--white);
+            padding: 4rem;
+            border: 1px solid var(--border-light);
+            margin: 4rem 0;
+        }
+
+        .bio-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .bio-text h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .bio-text p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .bio-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .highlight-item {
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .highlight-item::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 0.95rem;
+        }
+
+        .highlight-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-intro {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--navy);
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            background-color: var(--gold);
+            color: var(--navy);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--navy);
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-quote {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bio-content {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero::before {
+                font-size: 4rem;
+                top: 0.5rem;
+            }
+
+            .bio-section {
+                padding: 2rem;
+            }
+
+            .founder-content {
+                grid-template-columns: 1fr;
+            }
+
+            .founder-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .founder-section::before {
+                font-size: 3rem;
+                right: 1rem;
+                top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">kumoo</div>
+            <ul class="nav-links">
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#fan-fiction">Community</a></li>
+                <li><a href="#founder">Founder</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-quote">Stories capture what facts alone cannot—the truth beneath the surface, the quiet moment before everything changes.</div>
+            <div class="hero-byline">A collection of poetry and short fiction</div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <div class="container">
+        <section class="portfolio-section" id="portfolio">
+            <h2 class="section-title">Recent Work</h2>
+            
+            <div class="portfolio-grid">
+                <article class="sample-card">
+                    <div class="sample-genre">Short Story</div>
+                    <h3 class="sample-title">The Last Letter</h3>
+                    <p class="sample-excerpt">A woman discovers an unsent letter in her late mother's desk, written fifty years ago to a person she never knew existed. What follows is a journey into the past that changes everything she thought she knew.</p>
+                    <a href="the-last-letter.html" class="read-more">Read full story</a>
+                </article>
+
+                <article class="sample-card">
+                    <div class="sample-genre">Short Story</div>
+                    <h3 class="sample-title">The Gardener's Secret</h3>
+                    <p class="sample-excerpt">In a sleepy coastal town, a mysterious gardener plants impossible flowers. A curious teenager discovers the garden holds more magic than she ever imagined—and a secret that will reshape her entire world.</p>
+                    <a href="the-gardeners-secret.html" class="read-more">Read full story</a>
+                </article>
+
+                <article class="sample-card">
+                    <div class="sample-genre">Short Story</div>
+                    <h3 class="sample-title">Inheritance</h3>
+                    <p class="sample-excerpt">Two siblings return home to sort through their father's belongings, only to uncover family secrets that challenge everything they believed about love, sacrifice, and what we owe each other.</p>
+                    <a href="inheritance.html" class="read-more">Read full story</a>
+                </article>
+
+                <article class="sample-card">
+                    <div class="sample-genre">Essay</div>
+                    <h3 class="sample-title">On Writing the Unsayable</h3>
+                    <p class="sample-excerpt">A personal essay about the craft of writing—why we write what we're afraid to say, how words can heal, and what happens when we finally give language to the ineffable.</p>
+                    <a href="on-writing-the-unsayable.html" class="read-more">Read essay</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Fan Fiction Section -->
+        <section class="fan-fiction-section" id="fan-fiction">
+            <div class="section-title" style="text-align: center; margin: 0 auto 2rem; border: none;">Community Stories</div>
+            
+            <div class="fan-fiction-intro">
+                <p><strong>Love my stories?</strong> Share your own fan fiction, inspired adaptations, or creative responses to my work. This is a space for our community to imagine, create, and celebrate together.</p>
+                <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="submit-btn">Submit Your Story</a>
+            </div>
+
+            <div class="portfolio-grid">
+                <article class="sample-card">
+                    <span class="fan-fiction-badge">Fan Fiction</span>
+                    <div class="sample-genre">Community Story</div>
+                    <h3 class="sample-title">Waiting for a Submission</h3>
+                    <p class="sample-excerpt">Be the first to share your fan fiction inspired by kumoo's stories. Submit your creative work and see it featured here in our community gallery.</p>
+                    <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="read-more">Submit story</a>
+                </article>
+
+                <article class="sample-card">
+                    <span class="fan-fiction-badge">Fan Fiction</span>
+                    <div class="sample-genre">Community Story</div>
+                    <h3 class="sample-title">Space for Your Creativity</h3>
+                    <p class="sample-excerpt">Have a story inspired by "The Last Letter," "The Gardener's Secret," or any of kumoo's work? We'd love to read it. Your imagination matters here.</p>
+                    <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="read-more">Submit story</a>
+                </article>
+
+                <article class="sample-card">
+                    <span class="fan-fiction-badge">Fan Fiction</span>
+                    <div class="sample-genre">Community Story</div>
+                    <h3 class="sample-title">Your Voice Matters</h3>
+                    <p class="sample-excerpt">Whether it's a continuation, a reimagining, or a completely new story set in the worlds of kumoo's fiction—we want to feature your work here.</p>
+                    <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="read-more">Submit story</a>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <!-- Founder Profile Section -->
+    <section class="founder-section" id="founder">
+        <h2 class="founder-title">Founder Profile</h2>
+        <p class="founder-subtitle">Building the future of gaming, one game at a time</p>
+        
+        <div class="founder-content">
+            <div class="founder-story">
+                <p>What started as a passion for gaming during my school days has evolved into Red Mark Studios. With a BBA background and a vision to create something better, I founded the studio in 2024 with a dedicated team of 5 talented individuals.</p>
+                <p>Our first game, "The Last Floor," achieved 10,000+ downloads in just 1.5 months—a testament to our commitment to quality and innovation. But this is just the beginning. We're building Red Mark Studios as a creative force in the gaming industry, where every project pushes boundaries and delivers exceptional experiences.</p>
+                <p>Our mission is clear: create games that matter, that challenge players, and that leave a lasting impression.</p>
+            </div>
+            
+            <div class="founder-stats">
+                <div class="stat-box">
+                    <div class="stat-label">Founded</div>
+                    <div class="stat-value">2024</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Team Size</div>
+                    <div class="stat-value">5 Members</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Downloads (The Last Floor)</div>
+                    <div class="stat-value">10,000+</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Achievement Timeline</div>
+                    <div class="stat-value">1.5 Months</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Education</div>
+                    <div class="stat-value">BBA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bio Section -->
+    <div class="container">
+        <section class="bio-section" id="about">
+            <div class="bio-content">
+                <div class="bio-text">
+                    <h3>About the Writer</h3>
+                    <p>I've always believed that stories are how we make sense of the world. Whether through the compressed power of poetry or the narrative arc of short fiction, I write to explore the emotional truths that statistics and facts can't capture.</p>
+                    <p>My work examines the intersections of identity, memory, and human connection—the quiet moments that change us, often without our knowing.</p>
+                </div>
+                <div class="bio-highlights">
+                    <div class="highlight-item">
+                        <div class="highlight-title">Current Focus</div>
+                        <div class="highlight-desc">Short fiction exploring family dynamics and personal transformation</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <h2 class="section-title" style="margin: 0 auto 2rem; text-align: center; border: none;">Get in Touch</h2>
+            <div class="contact-content">
+                <p class="contact-intro">Interested in publishing my work, collaborating on a project, or simply connecting? I'd love to hear from you.</p>
+                <div class="contact-links">
+                    <a href="mailto:kumooochann@gmail.com" class="contact-link">Email</a>
+                    <a href="https://www.linkedin.com/in/kumoo-chann-578981412/" class="contact-link">LinkedIn</a>
+                    <a href="https://x.com/kumoochann" class="contact-link">X (Twitter)</a>
+                    <a href="https://www.instagram.com/kumooochann/" class="contact-link">Instagram</a>
+                    <a href="https://www.youtube.com/@Kumoooochan" class="contact-link">YouTube</a>
+                    <a href="https://redmarkstudios.in/" class="contact-link">Website</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 kumoo. All rights reserved. | Crafted with care</p>
+    </footer>
+
+    <script>
+        // Handle story link clicks
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#')) {
+                    // Load story content
+                    fetch(href)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.body.innerHTML = html;
+                            window.scrollTo(0, 0);
+                        })
+                        .catch(err => {
+                            alert('Could not load story. Try visiting: ' + window.location.origin + '/' + href);
+                        });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
