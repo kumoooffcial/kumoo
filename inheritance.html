@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance - kumoo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --navy: #1a1a2e;
+            --cream: #f5f3f0;
+            --gold: #c9a875;
+            --text-dark: #2c2c2c;
+            --text-light: #6b6b6b;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        nav {
+            background-color: var(--navy);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--cream);
+            font-style: italic;
+        }
+
+        .back-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--cream);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .story-header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 2rem;
+        }
+
+        .story-title {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .story-meta {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .story-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-dark);
+        }
+
+        .story-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .story-content em {
+            color: var(--text-light);
+        }
+
+        footer {
+            background-color: var(--navy);
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .story-title {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .story-content {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">kumoo</div>
+            <a onclick="window.history.back(); return false;" class="back-link" style="cursor: pointer;">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="story-header">
+            <h1 class="story-title">Inheritance</h1>
+            <p class="story-meta">A Short Story by kumoo</p>
+        </div>
+
+        <div class="story-content">
+            <p>The boxes arrived three weeks after Dad's funeral, shipped from his apartment in Portland to the small house where Lily and her brother Daniel lived with their mother. Neither of them wanted to open them.</p>
+
+            <p>They sat in the living room for days—seven large cardboard boxes covered in dust from a life they had never really known. Their father had left when Lily was four and Daniel was six. There had been child support and birthday cards and sporadic phone calls that grew less frequent over the years. By the time Lily turned sixteen, the calls had stopped altogether.</p>
+
+            <p>She'd only learned he was dead through a notice from his lawyer.</p>
+
+            <p>"We should look at them," Daniel said on a Thursday evening, standing in the doorway with his arms crossed. He was twenty-two now, back home from college for the semester. "The lawyer said he left explicit instructions about this. He wanted us to have these things specifically."</p>
+
+            <p>"I don't care what he wanted," Lily said, but her voice wavered slightly. She was curled up on the couch, half-watching a show she wasn't really interested in. "He didn't care what we wanted."</p>
+
+            <p>"Maybe that's fair," Daniel said quietly. "But he cared enough to send these. And to leave instructions."</p>
+
+            <p>Lily didn't respond, but later that night, after Daniel had gone to bed, she found herself in the living room with a box cutter. She opened the first box slowly, as if the contents might bite her.</p>
+
+            <p>Inside were photographs. Hundreds of them. She pulled one out at random and her breath caught.</p>
+
+            <p>It was her. Age four, missing her two front teeth, holding a birthday cake that was nearly as big as her head. Her father was in the photo, holding her hand. She had no memory of this moment, but the evidence was undeniable.</p>
+
+            <p>Lily went through the photos methodically. Every birthday. Every school photo. Pictures of Daniel learning to ride a bike, graduating middle school, his high school prom. Photographs of a life she hadn't known their father was documenting.</p>
+
+            <p>There were letters too. Dozens of them, sealed and labeled with their names and dates. Birthday letters. Letters that had been written and never sent, stacked chronologically and carefully preserved. Lily opened the one from her eighteen birthday, dated three years ago.</p>
+
+            <p><em>Dear Lily,</em> it began in her father's handwriting, which she barely recognized. <em>You're eighteen today, and I'm finally going to tell you something I should have said years ago: I loved you more than I knew how to say. I left your mother because our relationship was broken, but I want you to understand that my leaving had absolutely nothing to do with you or Daniel. You were the light of my life, and leaving you was the hardest thing I've ever done.</em></p>
+
+            <p>Lily couldn't read further. She set the letter down and wept.</p>
+
+            <p>By morning, she had opened all seven boxes. They contained: photo albums organized by year, letters for every birthday and Christmas he'd missed, video cassettes labeled with dates, a journal filled with his thoughts about his children, and one final small box containing two things—matching necklaces with their initials, tarnished silver that had been well-loved and well-worn.</p>
+
+            <p>Daniel found her asleep on the couch, surrounded by photographs and letters.</p>
+
+            <p>"Oh, Lily," he said softly, and she woke to find him already crying as he looked at the letters addressed to him, the photos of a childhood he'd forgotten, the evidence that their father had been paying attention all along, even when they couldn't see it.</p>
+
+            <p>That night, they watched the video cassettes together with their mother, who seemed surprised to learn that her ex-husband had been so devoted to keeping their children in his life, in the only ways he'd known how.</p>
+
+            <p>One video was their father, speaking directly to the camera. He looked older than the man Lily remembered, his face lined with grief and regret.</p>
+
+            <p>"I know I wasn't a good father," he said to the camera—to them. "I made choices that hurt people I loved, and I can't take those back. But I want you to know that every day of your lives, I thought about you. I wondered what you were doing, how tall you'd grown, what you were learning. And I wanted so desperately to be there."</p>
+
+            <p>He paused, and when he spoke again, his voice shook. "If I'm not here to tell you this in person, it means I don't have any more time to explain or justify or apologize enough. So I'm leaving you what I can—photographs of the moments I missed but was somehow there for, letters I wrote in the dark hours of the night when missing you was unbearable, and this: the knowledge that you were loved. You were so, so deeply loved."</p>
+
+            <p>The video ended.</p>
+
+            <p>Lily and Daniel sat in silence. After a while, Daniel picked up one of the necklaces—Lily's—and fastened it around her neck.</p>
+
+            <p>"He was trying," Daniel said finally. "In his broken, incomplete way, he was trying."</p>
+
+            <p>"It wasn't enough," Lily said. But she touched the necklace, and the anger she'd been carrying for so long felt slightly lighter.</p>
+
+            <p>"No," Daniel agreed. "It wasn't. But maybe it was something. Maybe that matters."</p>
+
+            <p>Over the following weeks, Lily read all the unsent letters. She and Daniel watched the videos together. They looked through photographs of their father as a young man, then as a middle-aged one, watching him age through the careful documentation he'd kept of his own life and theirs.</p>
+
+            <p>She didn't forgive him. Forgiveness felt too easy, too much like excusing the pain of his absence. But she began to understand him. She read the journal entries in which he wrote about therapy and regret and his attempts to be better than he had been. She saw, in the choices he'd made to document their lives so carefully, a man trying desperately to hold onto something he knew he was losing.</p>
+
+            <p>One day, looking through the photo album from the year after he'd left, Lily noticed something she hadn't before. In the margins, in tiny handwriting, her father had written notes. Next to a photo of her at age five, he'd written: <em>She has my ears and her mother's stubbornness. I hope she grows up to be kinder to the world than I've been.</em></p>
+
+            <p>Next to a school photo of Daniel, he'd written: <em>He's braver than I ever was. He'll do great things.</em></p>
+
+            <p>Lily closed the album carefully. She put on the silver necklace and kept it on. Not because she forgave her father for leaving. But because, in the end, he had tried to stay in her life in the only way he could.</p>
+
+            <p>It wasn't the inheritance she would have wanted. It wasn't the father she deserved. But it was something—a bridge built backwards across time, connecting a man who couldn't live with his choices to the children who were learning to live with the consequences.</p>
+
+            <p>And sometimes, Lily would realize, that was the most anyone could do.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 kumoo. All rights reserved.</p>
+    </footer>
+</body>
+</html>
