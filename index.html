@@ -152,6 +152,30 @@
             color: var(--navy);
         }
 
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
         footer {
             background-color: var(--navy);
             color: var(--cream);
@@ -177,6 +201,10 @@
             .container {
                 padding: 0 1.5rem;
             }
+
+            .about-section {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -199,7 +227,7 @@
 
     <div class="container">
         <section class="section" id="portfolio">
-            <h2 class="section-title">Recent Work</h2>
+            <h2 class="section-title">Short Fiction</h2>
             
             <div class="portfolio-grid">
                 <article class="card">
@@ -241,8 +269,16 @@
 
         <section class="section" id="about">
             <h2 class="section-title">About</h2>
-            <p style="margin-bottom: 1.5rem; color: var(--text-light); font-size: 1.05rem;">I've always believed that stories are how we make sense of the world. Whether through short fiction, I write to explore the emotional truths that statistics and facts can't capture.</p>
-            <p style="color: var(--text-light); font-size: 1.05rem;"><strong>Current Focus:</strong> Short fiction exploring family dynamics and personal transformation</p>
+            <div class="about-section">
+                <div class="about-image">
+                    <img src="kumoo-profile.png" alt="kumoo">
+                </div>
+                <div class="about-text">
+                    <p>I'm kumoo, a writer and founder passionate about storytelling and creating experiences that matter. I've always believed that stories are how we make sense of the world.</p>
+                    <p>Through short fiction, I explore the emotional truths that statistics and facts can't capture. I'm driven by the desire to create work that resonates deeply with readers.</p>
+                    <p><strong>Current Focus:</strong> Short fiction exploring family dynamics and personal transformation</p>
+                </div>
+            </div>
         </section>
 
         <section class="section" id="contact" style="text-align: center;">
