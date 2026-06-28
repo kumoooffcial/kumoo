@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kumoo - Writer & Founder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a1a2e;
+            --cream: #f5f3f0;
+            --gold: #c9a875;
+            --text-dark: #2c2c2c;
+            --text-light: #6b6b6b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--navy);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--cream);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .hero {
+            background-color: var(--navy);
+            color: var(--cream);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero-quote {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--gold);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.2rem;
+            color: var(--navy);
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .card-genre {
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.4rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .card-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .read-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .read-link:hover {
+            color: var(--navy);
+        }
+
+        footer {
+            background-color: var(--navy);
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-quote {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">kumoo</div>
+            <ul class="nav-links">
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#founder">Founder</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-quote">Stories capture what facts alone cannot—the truth beneath the surface, the quiet moment before everything changes.</div>
+    </section>
+
+    <div class="container">
+        <section class="section" id="portfolio">
+            <h2 class="section-title">Recent Work</h2>
+            
+            <div class="portfolio-grid">
+                <article class="card">
+                    <div class="card-genre">Short Story</div>
+                    <h3 class="card-title">The Last Letter</h3>
+                    <p class="card-excerpt">A woman discovers an unsent letter in her late mother's desk, written fifty years ago to a person she never knew existed.</p>
+                    <a href="the-last-letter.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Short Story</div>
+                    <h3 class="card-title">The Gardener's Secret</h3>
+                    <p class="card-excerpt">In a sleepy coastal town, a mysterious gardener plants impossible flowers. A curious teenager discovers the garden holds more magic than she ever imagined.</p>
+                    <a href="the-gardeners-secret.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Short Story</div>
+                    <h3 class="card-title">Inheritance</h3>
+                    <p class="card-excerpt">Two siblings return home to sort through their father's belongings, only to uncover family secrets that challenge everything they believed about love and sacrifice.</p>
+                    <a href="inheritance.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Essay</div>
+                    <h3 class="card-title">On Writing the Unsayable</h3>
+                    <p class="card-excerpt">A personal essay about the craft of writing—why we write what we're afraid to say, and what happens when we finally give language to the ineffable.</p>
+                    <a href="on-writing-the-unsayable.html" class="read-link">Read essay →</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="founder">
+            <h2 class="section-title">Founder - Red Mark Studios</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-light); font-size: 1.05rem;">Founded 2024 | Team: 5 Members | Downloads: 10,000+ | Education: BBA</p>
+            <p style="margin-bottom: 1.5rem; color: var(--text-light); font-size: 1.05rem;">What started as a passion for gaming during my school days has evolved into Red Mark Studios. With a vision to create something better, I founded the studio with a dedicated team of 5 talented individuals.</p>
+            <p style="color: var(--text-light); font-size: 1.05rem;">Our first game, "The Last Floor," achieved 10,000+ downloads in 1.5 months. We're building Red Mark Studios as a creative force in the gaming industry, where every project pushes boundaries and delivers exceptional experiences.</p>
+        </section>
+
+        <section class="section" id="about">
+            <h2 class="section-title">About</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-light); font-size: 1.05rem;">I've always believed that stories are how we make sense of the world. Whether through short fiction, I write to explore the emotional truths that statistics and facts can't capture.</p>
+            <p style="color: var(--text-light); font-size: 1.05rem;"><strong>Current Focus:</strong> Short fiction exploring family dynamics and personal transformation</p>
+        </section>
+
+        <section class="section" id="contact" style="text-align: center;">
+            <h2 class="section-title" style="text-align: center;">Get in Touch</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">Interested in my work or want to connect?</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="mailto:kumooochann@gmail.com" style="padding: 0.75rem 1.5rem; background-color: var(--navy); color: var(--cream); text-decoration: none; font-weight: 500;">Email</a>
+                <a href="https://www.linkedin.com/in/kumoo-chann-578981412/" style="padding: 0.75rem 1.5rem; background-color: var(--navy); color: var(--cream); text-decoration: none; font-weight: 500;">LinkedIn</a>
+                <a href="https://x.com/kumoochann" style="padding: 0.75rem 1.5rem; background-color: var(--navy); color: var(--cream); text-decoration: none; font-weight: 500;">X</a>
+                <a href="https://www.instagram.com/kumooochann/" style="padding: 0.75rem 1.5rem; background-color: var(--navy); color: var(--cream); text-decoration: none; font-weight: 500;">Instagram</a>
+                <a href="https://www.youtube.com/@Kumoooochan" style="padding: 0.75rem 1.5rem; background-color: var(--navy); color: var(--cream); text-decoration: none; font-weight: 500;">YouTube</a>
+                <a href="https://redmarkstudios.in/" style="padding: 0.75rem 1.5rem; background-color: var(--navy); color: var(--cream); text-decoration: none; font-weight: 500;">Red Mark Studios</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 kumoo. All rights reserved.</p>
+    </footer>
+</body>
+</html>
