@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         :root {
             --navy: #1a1a2e;
             --cream: #f5f3f0;
@@ -19,7 +23,24 @@
             --text-light: #6b6b6b;
         }
 
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         body {
+            animation: pageFadeIn 0.6s ease;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background-color: var(--cream);
             color: var(--text-dark);
@@ -66,10 +87,27 @@
             text-decoration: none;
             font-size: 0.95rem;
             transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .toggle-btn {
@@ -136,6 +174,12 @@
             padding: 2rem;
             text-align: center;
             border-radius: 12px;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.1);
         }
 
         .stat-number {
@@ -164,12 +208,13 @@
             border: 1px solid #e8e3de;
             padding: 2rem;
             border-radius: 12px;
-            transition: all 0.3s ease;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
         }
 
         .service-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+            border-color: var(--gold);
         }
 
         .service-icon {
@@ -246,6 +291,204 @@
             font-weight: 600;
         }
 
+        /* Video Recommendation Grid */
+        .video-rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-rec-card {
+            cursor: pointer;
+            transition: transform 0.25s ease;
+        }
+
+        .video-rec-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .video-rec-card.is-coming-soon {
+            cursor: default;
+        }
+
+        .video-rec-card.is-coming-soon:hover {
+            transform: none;
+        }
+
+        .video-rec-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #0d0d1a;
+            border: 2px solid transparent;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .video-rec-card:hover .video-rec-thumb {
+            box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+        }
+
+        .video-rec-card.is-active .video-rec-thumb {
+            border-color: var(--gold);
+        }
+
+        .video-rec-thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .video-rec-thumb-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2a2a45 100%);
+        }
+
+        .video-rec-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.9);
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .video-rec-thumb-empty .video-rec-play {
+            opacity: 0.4;
+        }
+
+        .video-rec-card:hover .video-rec-thumb .video-rec-play {
+            opacity: 1;
+        }
+
+        .video-rec-info {
+            padding-top: 0.6rem;
+        }
+
+        .video-rec-title {
+            font-size: 0.95rem;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .video-rec-tag {
+            font-size: 0.75rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+
+        .video-rec-tag-soon {
+            color: var(--text-light);
+        }
+
+        /* Proofreading Samples */
+        .proof-card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .proof-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .proof-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.2rem;
+            color: var(--navy);
+        }
+
+        .proof-score {
+            background-color: var(--gold);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .proof-block {
+            margin-bottom: 1.2rem;
+        }
+
+        .proof-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .proof-label.original {
+            color: #b85c5c;
+        }
+
+        .proof-label.edited {
+            color: #4a8c6f;
+        }
+
+        .proof-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .proof-text.original {
+            background-color: #faf1f1;
+            border-left: 3px solid #b85c5c;
+        }
+
+        .proof-text.edited {
+            background-color: #f1f6f3;
+            border-left: 3px solid #4a8c6f;
+        }
+
+        .corrections-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        .corrections-table th {
+            text-align: left;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--navy);
+            padding: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .corrections-table td {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-bottom: 1px solid #e8e3de;
+        }
+
         footer {
             background-color: var(--navy);
             color: var(--cream);
@@ -289,6 +532,7 @@
                     <li><a href="#services">Services</a></li>
                     <li><a href="#expertise">Expertise</a></li>
                     <li><a href="#video-samples">Video Samples</a></li>
+                    <li><a href="#proofreading-samples">Proofreading</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <a href="index.html" class="toggle-btn">📝 Writer Mode</a>
@@ -302,28 +546,194 @@
 
     <div class="container">
         <!-- Video Editing Samples -->
-        <section class="section" id="video-samples">
+        <section class="section fade-in-section" id="video-samples">
             <h2 class="section-title">Video Editing Samples</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">A look at my video editing work — cuts, transitions, color grading, and pacing.</p>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">A look at my video editing work — cuts, transitions, color grading, and pacing. Select a video below to watch.</p>
 
-            <div style="background-color: white; border: 1px solid #e8e3de; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-                <video controls style="width: 100%; border-radius: 8px; display: block; background-color: #000;" poster="">
+            <div style="background-color: white; border: 1px solid #e8e3de; border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem;">
+                <video id="main-video-player" controls style="width: 100%; border-radius: 8px; display: block; background-color: #000;">
                     <source src="video-sample-1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <div style="margin-top: 1.5rem;">
-                    <h3 style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 0.5rem;">Sample Edit — Reel 01</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem; line-height: 1.7;">A short edited piece showcasing cutting, transitions, and pacing techniques. More samples coming soon as I continue building my video editing portfolio.</p>
+                    <h3 id="main-video-title" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 0.5rem;">Sample Edit — Reel 01</h3>
+                    <p id="main-video-desc" style="color: var(--text-light); font-size: 0.95rem; line-height: 1.7;">A short edited piece showcasing cutting, transitions, and pacing techniques.</p>
                 </div>
             </div>
 
-            <div style="background-color: white; border: 1px dashed #c9a875; border-radius: 12px; padding: 2rem; text-align: center;">
-                <p style="color: var(--text-light); font-size: 0.95rem;">🔄 More video samples coming soon</p>
+            <h3 style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1.2rem;">More Samples</h3>
+
+            <div class="video-rec-grid">
+                <div class="video-rec-card is-active" onclick="playVideo('video-sample-1.mp4', 'Sample Edit — Reel 01', 'A short edited piece showcasing cutting, transitions, and pacing techniques.', this)">
+                    <div class="video-rec-thumb">
+                        <video muted preload="metadata" src="video-sample-1.mp4#t=0.1"></video>
+                        <div class="video-rec-play">▶</div>
+                    </div>
+                    <div class="video-rec-info">
+                        <div class="video-rec-title">Reel 01</div>
+                        <div class="video-rec-tag">Now Playing</div>
+                    </div>
+                </div>
+
+                <div class="video-rec-card is-coming-soon">
+                    <div class="video-rec-thumb video-rec-thumb-empty">
+                        <div class="video-rec-play" style="opacity: 0.4;">▶</div>
+                    </div>
+                    <div class="video-rec-info">
+                        <div class="video-rec-title">Reel 02</div>
+                        <div class="video-rec-tag video-rec-tag-soon">🔄 Coming Soon</div>
+                    </div>
+                </div>
+
+                <div class="video-rec-card is-coming-soon">
+                    <div class="video-rec-thumb video-rec-thumb-empty">
+                        <div class="video-rec-play" style="opacity: 0.4;">▶</div>
+                    </div>
+                    <div class="video-rec-info">
+                        <div class="video-rec-title">Reel 03</div>
+                        <div class="video-rec-tag video-rec-tag-soon">🔄 Coming Soon</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            function playVideo(src, title, desc, cardEl) {
+                const player = document.getElementById('main-video-player');
+                const source = player.querySelector('source');
+                source.src = src;
+                player.load();
+                player.play();
+                document.getElementById('main-video-title').textContent = title;
+                document.getElementById('main-video-desc').textContent = desc;
+
+                document.querySelectorAll('.video-rec-card').forEach(c => {
+                    c.classList.remove('is-active');
+                    const tag = c.querySelector('.video-rec-tag');
+                    if (tag && !c.classList.contains('is-coming-soon')) {
+                        tag.textContent = 'Watch';
+                        tag.classList.remove('video-rec-tag-soon');
+                    }
+                });
+                cardEl.classList.add('is-active');
+                const activeTag = cardEl.querySelector('.video-rec-tag');
+                if (activeTag) activeTag.textContent = 'Now Playing';
+
+                document.getElementById('video-samples').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        </script>
+
+        <!-- Proofreading Samples -->
+        <section class="section fade-in-section" id="proofreading-samples">
+            <h2 class="section-title">Proofreading Samples</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">Before-and-after examples showing grammar, punctuation, and clarity corrections.</p>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 1 — Learning a New Language</div>
+                    <div class="proof-score">Score: 7/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Learning a new language is not always easy but it can be one of the most rewarding experience in life. Many peoples give up because they expect to become fluent quickly. However consistency and daily practice often matter more then natural talent.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Learning a new language is not always easy, but it can be one of the most rewarding experiences in life. Many people give up because they expect to become fluent quickly. However, consistency and daily practice often matter more than natural talent.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>experience</td><td>experiences</td></tr>
+                    <tr><td>peoples</td><td>people</td></tr>
+                    <tr><td>then</td><td>than</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 2 — Client Thank-You Letter</div>
+                    <div class="proof-score">Score: 6.5/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Dear Ms. Johnson, Thank you for choosing our company. We are excited to helping you with your project and we appreciate your patience during the review process. If you have any question please contact us at anytime.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Dear Ms. Johnson, Thank you for choosing our company. We are excited to help you with your project, and we appreciate your patience during the review process. If you have any questions, please contact us at any time.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>helping</td><td>help</td></tr>
+                    <tr><td>question</td><td>questions</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 3 — Education & Technology</div>
+                    <div class="proof-score">Score: 6/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">The internet has made education more accessible then ever before. Students can attend online classes from anywhere in the world, however they must also develop strong time management skills because distractions are everywhere.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Technology has made education more accessible than ever before. Students can attend online classes from anywhere in the world; however, they must also develop strong time management skills because distractions are everywhere.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>then</td><td>than</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 4 — Michael's Career</div>
+                    <div class="proof-score">Score: 10/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Michael have worked in the marketing industry for over eight years. During his career he has managed several successful campaigns and have increased sales for many different clients. His communication skills are one of his greatest strength.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Michael has worked in the marketing industry for over eight years. During his career, he has managed several successful campaigns and has increased sales for many different clients. His communication skills are one of his greatest strengths.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>have worked</td><td>has worked</td></tr>
+                    <tr><td>(missing comma)</td><td>added comma after "During his career,"</td></tr>
+                    <tr><td>have increased</td><td>has increased</td></tr>
+                    <tr><td>greatest strength</td><td>greatest strengths</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 5 — Small Business Marketing</div>
+                    <div class="proof-score">Score: 10/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Many small businesses struggle to attract new customers because they dont have a clear marketing strategy. Posting on social media regularly is important but creating valuable content are equally necessary for long term growth.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Many small businesses struggle to attract new customers because they don't have a clear marketing strategy. Posting on social media regularly is important, but creating valuable content is equally necessary for long-term growth.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>dont</td><td>don't</td></tr>
+                    <tr><td>are</td><td>is</td></tr>
+                    <tr><td>(missing comma)</td><td>added comma before "but"</td></tr>
+                </table>
             </div>
         </section>
 
         <!-- Experience Stats -->
-        <section class="section">
+        <section class="section fade-in-section">
             <h2 class="section-title">Editing Experience</h2>
             <div class="stats-grid">
                 <div class="stat-box">
@@ -342,7 +752,7 @@
         </section>
 
         <!-- Services -->
-        <section class="section" id="services">
+        <section class="section fade-in-section" id="services">
             <h2 class="section-title">Editing Services</h2>
             <div class="services-grid">
                 <div class="service-card">
@@ -386,7 +796,7 @@
         </section>
 
         <!-- Expertise -->
-        <section class="section" id="expertise">
+        <section class="section fade-in-section" id="expertise">
             <h2 class="section-title">Areas of Expertise</h2>
             
             <div class="expertise-list">
@@ -405,7 +815,7 @@
         </section>
 
         <!-- Contact -->
-        <section class="section" id="contact" style="text-align: center;">
+        <section class="section fade-in-section" id="contact" style="text-align: center;">
             <h2 class="section-title">Ready to Enhance Your Work?</h2>
             <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">Let's work together to make your writing shine.</p>
             <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
@@ -420,5 +830,18 @@
     <footer>
         <p>&copy; 2024 kumoo. All rights reserved.</p>
     </footer>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
