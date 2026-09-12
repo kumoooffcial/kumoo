@@ -14,6 +14,31 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .editor-toggle-btn {
+            padding: 0.5rem 1.2rem;
+            background-color: #c9a875;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -512,8 +537,28 @@
         }
 
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.2rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                row-gap: 0.8rem;
+            }
+
+            .nav-right {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+                width: 100%;
+            }
+
             .nav-links {
-                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem 1.2rem;
             }
 
             .hero {
@@ -524,12 +569,57 @@
                 font-size: 1.5rem;
             }
 
+            .hero::after {
+                font-size: 12rem;
+                top: -1.5rem;
+            }
+
             .container {
-                padding: 0 1.5rem;
+                padding: 0 1.2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
             }
 
             .about-section {
                 grid-template-columns: 1fr;
+            }
+
+            .founder-band {
+                padding: 3.5rem 1.5rem;
+            }
+
+            .founder-stats-row {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .nav-title {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                gap: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .hero-quote {
+                font-size: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            #contact div[style*="justify-content: center"] a {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -540,7 +630,7 @@
     <nav>
         <div class="nav-container">
             <div class="nav-title">kumoo</div>
-            <div style="display: flex; gap: 2rem; align-items: center;">
+            <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="#portfolio">Work</a></li>
                     <li><a href="#fan-fiction">Community</a></li>
@@ -548,7 +638,7 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <a href="editor.html" style="padding: 0.5rem 1.2rem; background-color: #c9a875; color: #1a1a2e; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; text-decoration: none; transition: all 0.3s ease;">⚙️ Editor Mode</a>
+                <a href="editor.html" class="editor-toggle-btn">⚙️ Editor Mode</a>
             </div>
         </div>
     </nav>
