@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kumoo - Writer & Founder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .editor-toggle-btn {
+            padding: 0.5rem 1.2rem;
+            background-color: #c9a875;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --navy: #1a1a2e;
+            --plum: #2d1e42;
+            --ink: #0f0d1a;
+            --cream: #f5f3f0;
+            --paper: #faf8f4;
+            --gold: #c9a875;
+            --amber: #e3b578;
+            --text-dark: #2c2c2c;
+            --text-light: #6b6b6b;
+        }
+
+        body {
+            animation: pageFadeIn 0.6s ease;
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes inkDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-2%, 2%) scale(1.05); }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            position: relative;
+            background-color: var(--paper);
+            background-image:
+                radial-gradient(ellipse 1000px 600px at 50% -5%, rgba(227, 181, 120, 0.14), transparent 62%),
+                radial-gradient(ellipse 900px 800px at 95% 15%, rgba(201, 168, 117, 0.13), transparent 60%),
+                radial-gradient(ellipse 800px 800px at -10% 35%, rgba(45, 30, 66, 0.06), transparent 55%),
+                radial-gradient(ellipse 700px 600px at 50% 110%, rgba(201, 168, 117, 0.07), transparent 60%);
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.65;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+        }
+
+        #vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse 80% 70% at 50% 40%, transparent 45%, rgba(15, 13, 26, 0.10) 100%);
+        }
+
+        nav, .hero, .section, footer, .container, .founder-band {
+            position: relative;
+            z-index: 1;
+        }
+
+        .founder-band {
+            box-shadow: inset 0 40px 32px -32px rgba(15, 13, 26, 0.35), inset 0 -40px 32px -32px rgba(15, 13, 26, 0.35);
+            background:
+                radial-gradient(ellipse 800px 500px at 15% 30%, rgba(201, 168, 117, 0.10), transparent 60%),
+                linear-gradient(135deg, var(--navy) 0%, var(--plum) 60%, var(--navy) 100%);
+            padding: 5.5rem 2rem;
+            overflow: hidden;
+        }
+
+        .founder-band-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .founder-eyebrow {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .founder-band .section-title {
+            margin-bottom: 2rem;
+        }
+
+        .founder-band .section-title::after {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .founder-lede {
+            color: rgba(245, 243, 240, 0.82);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.3rem;
+            max-width: 640px;
+        }
+
+        .founder-stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(245, 243, 240, 0.15);
+        }
+
+        .founder-stat {
+            display: flex;
+            flex-direction: column;
+            color: rgba(245, 243, 240, 0.65);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .founder-stat span {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-bottom: 0.2rem;
+        }
+
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), #e0c496);
+            z-index: 200;
+            transition: width 0.1s ease-out;
+        }
+
+        #ink-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        h1, h2, h3, .nav-title, .hero-quote, .card-title, .stat-number, .service-title, .proof-title {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        nav {
+            background-color: var(--navy);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--cream);
+            font-style: italic;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            font-family: 'Jost', -apple-system, sans-serif;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background:
+                radial-gradient(ellipse 700px 500px at 20% 20%, rgba(201, 168, 117, 0.10), transparent 60%),
+                linear-gradient(135deg, var(--navy) 0%, var(--plum) 55%, var(--navy) 100%);
+            color: var(--cream);
+            padding: 7rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lamp-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            width: 700px;
+            height: 700px;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(227, 181, 120, 0.22) 0%, rgba(227, 181, 120, 0.08) 35%, transparent 68%);
+            pointer-events: none;
+            animation: lampBreathe 9s ease-in-out infinite;
+            transition: transform 0.6s ease-out;
+            will-change: transform;
+        }
+
+        @keyframes lampBreathe {
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 1; }
+        }
+
+        .ink-word {
+            position: absolute;
+            top: 12%;
+            left: 8%;
+            font-family: 'Caveat', cursive;
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            color: var(--amber);
+            opacity: 0.07;
+            transform: rotate(-6deg);
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .hero::after {
+            content: '\201C';
+            position: absolute;
+            top: -3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 22rem;
+            line-height: 1;
+            color: var(--gold);
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .hero-quote {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--gold);
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.4s ease-out;
+            will-change: transform;
+        }
+
+        .ink-flourish {
+            position: relative;
+            z-index: 1;
+            width: 220px;
+            height: 28px;
+            margin: 2.2rem auto 0;
+            display: block;
+            overflow: visible;
+        }
+
+        .ink-flourish path {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            opacity: 0.55;
+            stroke-dasharray: 260;
+            stroke-dashoffset: 260;
+            animation: drawFlourish 1.8s 0.4s ease-out forwards;
+        }
+
+        @keyframes drawFlourish {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .lamp-glow {
+                animation: none;
+            }
+            .ink-flourish path {
+                animation: none;
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1.2rem;
+        }
+
+        .section-title::before {
+            content: '❧';
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 70px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .section-title.center {
+            text-align: center;
+        }
+
+        .section-title.center::before {
+            display: inline-block;
+        }
+
+        .section-title.center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(45, 30, 66, 0.05);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+            border-color: var(--gold);
+        }
+
+        .card-genre {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .card-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .read-link {
+            font-family: 'Jost', sans-serif;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .read-link:hover {
+            color: var(--navy);
+            transform: translateX(4px);
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Editing Experience Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-box {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(45, 30, 66, 0.05);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(45, 30, 66, 0.05);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+            border-color: var(--gold);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .expertise-list {
+            background-color: white;
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .expertise-list h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .expertise-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .expertise-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .expertise-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Proofreading Samples */
+        .proof-card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(45, 30, 66, 0.05);
+        }
+
+        .proof-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .proof-title {
+            font-size: 1.2rem;
+            color: var(--navy);
+        }
+
+        .proof-score {
+            background-color: var(--gold);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .proof-block {
+            margin-bottom: 1.2rem;
+        }
+
+        .proof-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .proof-label.original {
+            color: #b85c5c;
+        }
+
+        .proof-label.edited {
+            color: #4a8c6f;
+        }
+
+        .proof-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .proof-text.original {
+            background-color: #faf1f1;
+            border-left: 3px solid #b85c5c;
+        }
+
+        .proof-text.edited {
+            background-color: #f1f6f3;
+            border-left: 3px solid #4a8c6f;
+        }
+
+        .corrections-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        .corrections-table th {
+            text-align: left;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--navy);
+            padding: 0.5rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .corrections-table td {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-bottom: 1px solid #e8e3de;
+        }
+
+        /* Script Writing Samples */
+        .script-card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(45, 30, 66, 0.05);
+        }
+
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .script-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            color: var(--navy);
+        }
+
+        .script-tag {
+            background-color: var(--gold);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .script-text {
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Upcoming Services */
+        .upcoming-card {
+            background-color: white;
+            border: 1px dashed #d8cdb8;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .upcoming-tag {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.5rem 1rem;
+            background-color: #c9a875;
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Reviews & Feedback */
+        .review-card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(45, 30, 66, 0.05);
+        }
+
+        .review-stars-display {
+            color: var(--gold);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .review-quote {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .review-author {
+            font-family: 'Jost', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 0.9rem;
+        }
+
+        .review-form-wrap {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            border-radius: 10px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .star-rating-input {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            gap: 0.3rem;
+            margin: 1rem 0 1.8rem;
+        }
+
+        .star-rating-input input {
+            display: none;
+        }
+
+        .star-rating-input label {
+            font-size: 2.2rem;
+            color: #ddd6cd;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .star-rating-input input:checked ~ label,
+        .star-rating-input label:hover,
+        .star-rating-input label:hover ~ label {
+            color: var(--gold);
+        }
+
+        .review-form-field {
+            max-width: 480px;
+            margin: 0 auto 1.2rem;
+            text-align: left;
+        }
+
+        .review-form-field label {
+            display: block;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .review-form-field input,
+        .review-form-field select,
+        .review-form-field textarea {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid #e8e3de;
+            border-radius: 6px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 0.95rem;
+            resize: vertical;
+        }
+
+        .review-submit-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: var(--gold);
+            color: var(--navy);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            transition: transform 0.25s ease;
+        }
+
+        .review-submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Start a Project contact form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            text-align: left;
+            align-items: start;
+        }
+
+        .contact-eyebrow {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.4rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 420px;
+        }
+
+        .contact-email-block {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .contact-email-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(201, 168, 117, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-email-text a {
+            display: block;
+            color: var(--navy);
+            font-weight: 600;
+            font-size: 0.98rem;
+            text-decoration: none;
+        }
+
+        .contact-email-text span {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 0.15rem;
+        }
+
+        .contact-form-card {
+            background-color: white;
+            border: 1px solid #e8e3de;
+            border-radius: 14px;
+            padding: 2.2rem;
+            box-shadow: 0 4px 20px rgba(45, 30, 66, 0.06);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .contact-form-card .review-form-field {
+            max-width: none;
+            margin: 0 0 1.2rem;
+        }
+
+        .contact-submit-btn {
+            width: 100%;
+            display: block;
+            padding: 0.9rem 2rem;
+            background-color: var(--navy);
+            color: var(--cream);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            transition: transform 0.25s ease, background-color 0.25s ease;
+        }
+
+        .contact-submit-btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--gold-dark, var(--navy));
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            background-color: var(--navy);
+            color: var(--cream);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.2rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                row-gap: 0.8rem;
+            }
+
+            .nav-right {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+                width: 100%;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem 1.2rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-quote {
+                font-size: 1.5rem;
+            }
+
+            .hero::after {
+                font-size: 12rem;
+                top: -1.5rem;
+            }
+
+            .container {
+                padding: 0 1.2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .founder-band {
+                padding: 3.5rem 1.5rem;
+            }
+
+            .founder-stats-row {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .star-rating-input label {
+                font-size: 1.8rem;
+            }
+
+            .review-form-wrap {
+                padding: 1.5rem;
+            }
+
+            .nav-title {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                gap: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .hero-quote {
+                font-size: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            #contact div[style*="justify-content: center"] a {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="ink-canvas"></canvas>
+    <div id="reading-progress"></div>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">kumoo</div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#portfolio">Work</a></li>
+                    <li><a href="#fan-fiction">Community</a></li>
+                    <li><a href="#founder">Founder</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#proofreading-samples">Samples</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-quote">Stories capture what facts alone cannot—the truth beneath the surface, the quiet moment before everything changes.</div>
+    </section>
+
+    <div class="container">
+        <section class="section fade-in-section" id="portfolio">
+            <h2 class="section-title">Short Fiction</h2>
+            
+            <div class="portfolio-grid">
+                <article class="card">
+                    <div class="card-genre">Short Story</div>
+                    <h3 class="card-title">The Last Letter</h3>
+                    <p class="card-excerpt">A woman discovers an unsent letter in her late mother's desk, written fifty years ago to a person she never knew existed.</p>
+                    <a href="the-last-letter.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Short Story</div>
+                    <h3 class="card-title">The Gardener's Secret</h3>
+                    <p class="card-excerpt">In a sleepy coastal town, a mysterious gardener plants impossible flowers. A curious teenager discovers the garden holds more magic than she ever imagined.</p>
+                    <a href="the-gardeners-secret.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Short Story</div>
+                    <h3 class="card-title">Inheritance</h3>
+                    <p class="card-excerpt">Two siblings return home to sort through their father's belongings, only to uncover family secrets that challenge everything they believed about love and sacrifice.</p>
+                    <a href="inheritance.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Essay</div>
+                    <h3 class="card-title">On Writing the Unsayable</h3>
+                    <p class="card-excerpt">A personal essay about the craft of writing—why we write what we're afraid to say, and what happens when we finally give language to the ineffable.</p>
+                    <a href="on-writing-the-unsayable.html" class="read-link">Read essay →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Horror / Short Story</div>
+                    <h3 class="card-title">The Fuel Station</h3>
+                    <p class="card-excerpt">A truck driver's midnight breakdown leads him to an abandoned fuel station with a history it refuses to let go of — and something that has waited decades for company.</p>
+                    <a href="the-fuel-station.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Psychological Horror</div>
+                    <h3 class="card-title">Hollow Signal</h3>
+                    <p class="card-excerpt">A field technician is sent to a silent mountain relay station and finds two voices on the radio, each insisting the other cannot be trusted — and a predecessor who never found out which one was lying.</p>
+                    <a href="hollow-signal.html" class="read-link">Read full story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Survival Horror</div>
+                    <h3 class="card-title">Last Ward</h3>
+                    <p class="card-excerpt">Trapped in a collapsing hospital during an outbreak, three survivors must scavenge, fortify, and endure seven nights to repair a rooftop radio tower — if the building lets them stay three that long.</p>
+                    <a href="last-ward.html" class="read-link">Read full story →</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section fade-in-section" id="fan-fiction">
+            <h2 class="section-title">Community Stories</h2>
+            <div style="background-color: white; padding: 2rem; border-left: 4px solid var(--gold); margin-bottom: 3rem; text-align: center;">
+                <p style="margin-bottom: 1rem; color: var(--text-light); font-size: 1.05rem;"><strong>Love my stories?</strong> Share your own fan fiction, inspired adaptations, or creative responses to my work. This is a space for our community to imagine, create, and celebrate together.</p>
+                <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" style="display: inline-block; padding: 0.75rem 2rem; background-color: var(--gold); color: var(--navy); text-decoration: none; font-weight: 600; margin-top: 1rem;">Submit Your Story</a>
+            </div>
+
+            <div class="portfolio-grid">
+                <article class="card">
+                    <div class="card-genre">Community Story</div>
+                    <h3 class="card-title">Waiting for a Submission</h3>
+                    <p class="card-excerpt">Be the first to share your fan fiction inspired by kumoo's stories. Submit your creative work and see it featured here in our community gallery.</p>
+                    <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="read-link">Submit story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Community Story</div>
+                    <h3 class="card-title">Space for Your Creativity</h3>
+                    <p class="card-excerpt">Have a story inspired by "The Last Letter," "The Gardener's Secret," or any of kumoo's work? We'd love to read it. Your imagination matters here.</p>
+                    <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="read-link">Submit story →</a>
+                </article>
+
+                <article class="card">
+                    <div class="card-genre">Community Story</div>
+                    <h3 class="card-title">Your Voice Matters</h3>
+                    <p class="card-excerpt">Whether it's a continuation, a reimagining, or a completely new story set in the worlds of kumoo's fiction—we want to feature your work here.</p>
+                    <a href="mailto:kumooochann@gmail.com?subject=Fan%20Fiction%20Submission" class="read-link">Submit story →</a>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <section class="founder-band fade-in-section" id="founder">
+        <div class="founder-band-inner">
+            <div class="founder-eyebrow">Beyond the page</div>
+            <h2 class="section-title" style="color: var(--paper);">Founder — Red Mark Studios</h2>
+            <p class="founder-lede">What started as a passion for gaming during my school days has evolved into Red Mark Studios. With a vision to create something better, I founded the studio with a dedicated team of 5 talented individuals.</p>
+            <p class="founder-lede">Our first game, "The Last Floor," achieved 19,000+ downloads in 1.5 months. We're building Red Mark Studios as a creative force in the gaming industry, where every project pushes boundaries and delivers exceptional experiences.</p>
+
+            <div class="founder-stats-row">
+                <div class="founder-stat"><span>2024</span>Founded</div>
+                <div class="founder-stat"><span>5</span>Team Members</div>
+                <div class="founder-stat"><span>19K+</span>Downloads</div>
+                <div class="founder-stat"><span>1.5mo</span>To Milestone</div>
+                <div class="founder-stat"><span>BBA</span>Education</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="section fade-in-section" id="about">
+            <h2 class="section-title">About</h2>
+            <div class="about-section">
+                <div class="about-image">
+                    <img src="kumoo-profile.png" alt="kumoo">
+                </div>
+                <div class="about-text">
+                    <p>I'm kumoo, a writer and founder passionate about storytelling and creating experiences that matter. I've always believed that stories are how we make sense of the world.</p>
+                    <p>Through short fiction, I explore the emotional truths that statistics and facts can't capture. I'm driven by the desire to create work that resonates deeply with readers.</p>
+                    <p><strong>Current Focus:</strong> Short fiction exploring family dynamics and personal transformation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Stats -->
+        <section class="section fade-in-section">
+            <h2 class="section-title">Writing & Editing Experience</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">1+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Edited</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="section fade-in-section" id="services">
+            <h2 class="section-title">Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✏️</div>
+                    <h3 class="service-title">Copyediting</h3>
+                    <p class="service-desc">Grammar, punctuation, style, and consistency. Perfect for polishing your manuscript before submission or publication.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3 class="service-title">Proofreading</h3>
+                    <p class="service-desc">Final pass for typos, spelling, and formatting errors. Ideal for near-final manuscripts ready for publication.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📝</div>
+                    <h3 class="service-title">Line Editing</h3>
+                    <p class="service-desc">Sentence-level improvements for clarity, style, and impact. Enhances readability and polish throughout your work.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3 class="service-title">Content Creation</h3>
+                    <p class="service-desc">Writing and editing blog posts, articles, and web content. Perfect for building your online presence.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎬</div>
+                    <h3 class="service-title">Script Writing</h3>
+                    <p class="service-desc">Scripts for short films, videos, and content projects — structured for pacing, voice, and visual storytelling.</p>
+                </div>
+            </div>
+
+            <div class="expertise-list">
+                <h3>Genre Experience</h3>
+                <ul>
+                    <li>Short Fiction & Novels</li>
+                    <li>Personal Essays</li>
+                    <li>Creative Non-Fiction</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Proofreading Samples -->
+        <section class="section fade-in-section" id="proofreading-samples">
+            <h2 class="section-title">Proofreading Samples</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">Before-and-after examples showing grammar, punctuation, and clarity corrections.</p>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 1 — Learning a New Language</div>
+                    <div class="proof-score">Score: 7/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Learning a new language is not always easy but it can be one of the most rewarding experience in life. Many peoples give up because they expect to become fluent quickly. However consistency and daily practice often matter more then natural talent.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Learning a new language is not always easy, but it can be one of the most rewarding experiences in life. Many people give up because they expect to become fluent quickly. However, consistency and daily practice often matter more than natural talent.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>experience</td><td>experiences</td></tr>
+                    <tr><td>peoples</td><td>people</td></tr>
+                    <tr><td>then</td><td>than</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 2 — Client Thank-You Letter</div>
+                    <div class="proof-score">Score: 6.5/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Dear Ms. Johnson, Thank you for choosing our company. We are excited to helping you with your project and we appreciate your patience during the review process. If you have any question please contact us at anytime.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Dear Ms. Johnson, Thank you for choosing our company. We are excited to help you with your project, and we appreciate your patience during the review process. If you have any questions, please contact us at any time.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>helping</td><td>help</td></tr>
+                    <tr><td>question</td><td>questions</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 3 — Education & Technology</div>
+                    <div class="proof-score">Score: 6/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">The internet has made education more accessible then ever before. Students can attend online classes from anywhere in the world, however they must also develop strong time management skills because distractions are everywhere.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Technology has made education more accessible than ever before. Students can attend online classes from anywhere in the world; however, they must also develop strong time management skills because distractions are everywhere.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>then</td><td>than</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 4 — Michael's Career</div>
+                    <div class="proof-score">Score: 10/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Michael have worked in the marketing industry for over eight years. During his career he has managed several successful campaigns and have increased sales for many different clients. His communication skills are one of his greatest strength.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Michael has worked in the marketing industry for over eight years. During his career, he has managed several successful campaigns and has increased sales for many different clients. His communication skills are one of his greatest strengths.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>have worked</td><td>has worked</td></tr>
+                    <tr><td>(missing comma)</td><td>added comma after "During his career,"</td></tr>
+                    <tr><td>have increased</td><td>has increased</td></tr>
+                    <tr><td>greatest strength</td><td>greatest strengths</td></tr>
+                </table>
+            </div>
+
+            <div class="proof-card">
+                <div class="proof-header">
+                    <div class="proof-title">Sample 5 — Small Business Marketing</div>
+                    <div class="proof-score">Score: 10/10</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label original">Original</div>
+                    <div class="proof-text original">Many small businesses struggle to attract new customers because they dont have a clear marketing strategy. Posting on social media regularly is important but creating valuable content are equally necessary for long term growth.</div>
+                </div>
+                <div class="proof-block">
+                    <div class="proof-label edited">Proofread</div>
+                    <div class="proof-text edited">Many small businesses struggle to attract new customers because they don't have a clear marketing strategy. Posting on social media regularly is important, but creating valuable content is equally necessary for long-term growth.</div>
+                </div>
+                <table class="corrections-table">
+                    <tr><th>Original</th><th>Edited</th></tr>
+                    <tr><td>dont</td><td>don't</td></tr>
+                    <tr><td>are</td><td>is</td></tr>
+                    <tr><td>(missing comma)</td><td>added comma before "but"</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Script Writing Samples -->
+        <section class="section fade-in-section" id="script-samples">
+            <h2 class="section-title">Script Writing Samples</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">A few short-form scripts written for gaming and challenge-style video content — paced for narration and on-screen action.</p>
+
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-title">Rising Ground — Minecraft Challenge</div>
+                    <div class="script-tag">Gaming / Challenge</div>
+                </div>
+                <div class="script-text">WAIT—WHY IS THE GROUND RISING?!
+Every second, the blocks underneath me rise higher and higher...
+And then suddenly, THE ENTIRE GROUND SHOOTS UP!
+I had no idea what was happening, so I mined underneath the raised blocks...
+Nothing. Just AIR.
+And underneath that?
+DEATH.
+Luckily, I was right next to a water source, so I jumped straight into it just as the ground started rising again.
+I survived, but now I needed to figure out how to use this mod to my advantage.
+So I found a tree, crafted a crafting table, and decided to hunt for diamonds.
+Because whenever the ground rises, it also brings whatever is underneath it up with me.
+I kept exploring until I found a village with a smithing house.
+Inside, I found some iron ingots, so I crafted an iron bucket and continued exploring.
+Then I found an iron golem and took it down for even more iron.
+I built myself about three blocks up...
+And right on cue, THE GROUND ROSE AGAIN!
+I just sighed...
+"Thank god I crafted that bucket."
+Because if this thing launches me into the sky, I'm going to need a water bucket clutch.
+So if I actually survive the clutch, you better subscribe!
+And then...
+A cave appeared.
+I rushed inside...
+And finally...
+DIAMONDS!
+After all that chaos, I finally found what I came for.
+This mod is completely insane.
+But I'm not stopping here.
+I'm finding diamonds no matter what this mod throws at me.
+LET'S GOOOOOO!</div>
+            </div>
+
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-title">Cushion Script</div>
+                    <div class="script-tag">Gaming / Tutorial</div>
+                </div>
+                <div class="script-text">If you place a cushion on a shelf, you can sit on it, get off, and even walk across it normally.
+But if you walk over it from one specific spot, you'll fall straight through into a hidden base.
+You can make that spot even more precise by placing bamboo around it.
+But you can also do the opposite.
+Place a cushion on a fence, and it looks completely normal. You can walk across it, and it elevates you just like a fence.
+However, once you sit on it and try to get off, you'll pass straight through it.
+So you can place these randomly in the middle of a cushion line to create a hidden entrance...
+Or put one at the very end to turn it into a trap.</div>
+            </div>
+
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-title">Day 2 — Adding a Car</div>
+                    <div class="script-tag">Gaming / Series</div>
+                </div>
+                <div class="script-text">"This is Day 2 of adding whatever the top comment says to my Roblox game."
+And today's top comment said…
+"Add a car."
+So today, we're adding a car to the game.
+I built the car, added the wheels, and got the driving system working.
+But now came the important part…
+Importing it into Roblox and testing it.
+And… let's see if it actually works.
+[SHOW CAR DRIVING / CRASH / FUNNY MOMENT]
+Okay… I definitely need to fix that.
+But the car is officially in the game!
+Comment what I should add tomorrow.
+The top comment gets added.
+Come back tomorrow to see what we're adding next!</div>
+            </div>
+        </section>
+
+        <section class="section fade-in-section" id="contact">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-eyebrow">Let's Create Together</div>
+                    <h2>Start a Project</h2>
+                    <p>Have a project in mind? Let's talk. I write, edit, and build creative work for stories, videos, and games.</p>
+                    <div class="contact-email-block">
+                        <div class="contact-email-icon">✉️</div>
+                        <div class="contact-email-text">
+                            <a href="mailto:kumooochann@gmail.com">kumooochann@gmail.com</a>
+                            <span>Email me directly</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-card">
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="review-form-field">
+                                <label for="contact-name">Your Name</label>
+                                <input type="text" id="contact-name" placeholder="John Doe" required>
+                            </div>
+                            <div class="review-form-field">
+                                <label for="contact-email">Email Address</label>
+                                <input type="email" id="contact-email" placeholder="john@company.com" required>
+                            </div>
+                        </div>
+
+                        <div class="review-form-field">
+                            <label for="contact-type">Project Type</label>
+                            <select id="contact-type" required>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="Writing">Writing</option>
+                                <option value="Script Writing">Script Writing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="review-form-field">
+                                <label for="contact-budget">Budget Range</label>
+                                <select id="contact-budget">
+                                    <option value="" disabled selected>Select a range...</option>
+                                    <option value="Under $15">Under $15</option>
+                                    <option value="$15 – $30">$15 – $30</option>
+                                    <option value="$30 – $75">$30 – $75</option>
+                                    <option value="$75+">$75+</option>
+                                    <option value="Let's discuss">Let's discuss</option>
+                                </select>
+                            </div>
+                            <div class="review-form-field">
+                                <label for="contact-deadline">Deadline</label>
+                                <input type="date" id="contact-deadline">
+                            </div>
+                        </div>
+
+                        <div class="review-form-field">
+                            <label for="contact-message">Tell Me About Your Project</label>
+                            <textarea id="contact-message" rows="4" placeholder="Describe your project, goals, references..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="contact-submit-btn">Send Message →</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Services -->
+        <section class="section fade-in-section" id="upcoming-services">
+            <h2 class="section-title">Upcoming Services</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">Not live yet, but on the way.</p>
+            <div class="services-grid">
+                <div class="upcoming-card">
+                    <div class="service-icon">📖</div>
+                    <h3 class="service-title">Developmental Editing</h3>
+                    <p class="service-desc">In-depth feedback on structure, pacing, character development, and overall narrative flow.</p>
+                    <div class="upcoming-tag">🔄 Coming Soon</div>
+                </div>
+
+                <div class="upcoming-card">
+                    <div class="service-icon">🎯</div>
+                    <h3 class="service-title">Content Editing</h3>
+                    <p class="service-desc">Comprehensive review of content, organization, and messaging.</p>
+                    <div class="upcoming-tag">🔄 Coming Soon</div>
+                </div>
+
+                <div class="upcoming-card">
+                    <div class="service-icon">📰</div>
+                    <h3 class="service-title">Blog Posts & Articles</h3>
+                    <p class="service-desc">Long-form written content for websites, publications, and personal platforms.</p>
+                    <div class="upcoming-tag">🔄 Coming Soon</div>
+                </div>
+
+                <div class="upcoming-card">
+                    <div class="service-icon">🎓</div>
+                    <h3 class="service-title">Academic Writing</h3>
+                    <p class="service-desc">Structured, well-researched writing for academic and educational contexts.</p>
+                    <div class="upcoming-tag">🔄 Coming Soon</div>
+                </div>
+
+                <div class="upcoming-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3 class="service-title">Technical Writing</h3>
+                    <p class="service-desc">Clear, precise documentation and technical content.</p>
+                    <div class="upcoming-tag">🔄 Coming Soon</div>
+                </div>
+            </div>
+        </section>
+        <section class="section fade-in-section" id="reviews">
+            <h2 class="section-title">Reviews & Feedback</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-light); font-size: 1.05rem;">What readers and clients have to say — and a space to leave your own rating and feedback.</p>
+
+            <div class="portfolio-grid">
+                <article class="review-card">
+                    <div class="review-stars-display">☆☆☆☆☆</div>
+                    <p class="review-quote">Be the first to leave a review! Share your thoughts on my stories, editing work, or Red Mark Studios projects below.</p>
+                    <div class="review-author">— Waiting for your feedback</div>
+                </article>
+            </div>
+
+            <div class="review-form-wrap">
+                <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.5rem;">Leave a Rating & Review</h3>
+                <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 0.5rem;">Your feedback helps and might be featured above.</p>
+
+                <form id="review-form">
+                    <div class="star-rating-input">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                    </div>
+
+                    <div class="review-form-field">
+                        <label for="review-name">Your Name</label>
+                        <input type="text" id="review-name" placeholder="Jane Doe" required>
+                    </div>
+
+                    <div class="review-form-field">
+                        <label for="review-message">Your Review</label>
+                        <textarea id="review-message" rows="4" placeholder="Share your thoughts..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="review-submit-btn">Submit Review</button>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; <span id="footer-year">2024</span> kumoo. All rights reserved.</p>
+        <p id="live-clock" style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.75;"></p>
+    </footer>
+    <script>
+        // Live footer clock
+        (function() {
+            const yearEl = document.getElementById('footer-year');
+            const clockEl = document.getElementById('live-clock');
+            function updateClock() {
+                const now = new Date();
+                if (yearEl) yearEl.textContent = now.getFullYear();
+                if (clockEl) {
+                    const dateStr = now.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+                    const timeStr = now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    const tzMatch = now.toLocaleTimeString(undefined, { timeZoneName: 'short' }).match(/[A-Za-z\+\-0-9]+$/);
+                    const tz = tzMatch ? tzMatch[0] : Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    clockEl.textContent = `${dateStr} • ${timeStr} ${tz}`;
+                }
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+        })();
+
+        // Drifting ink particle background
+        (function() {
+            const canvas = document.getElementById('ink-canvas');
+            const ctx = canvas.getContext('2d');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let particles = [];
+            let w, h;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+
+            function makeParticles() {
+                const count = Math.min(60, Math.floor((w * h) / 45000));
+                particles = Array.from({ length: count }, () => ({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 1.6 + 0.6,
+                    vx: (Math.random() - 0.5) * 0.15,
+                    vy: (Math.random() - 0.5) * 0.15,
+                    hue: Math.random() > 0.35 ? 'gold' : 'plum'
+                }));
+            }
+
+            function colorFor(p, alpha) {
+                return p.hue === 'gold'
+                    ? `rgba(201, 168, 117, ${alpha})`
+                    : `rgba(93, 64, 130, ${alpha})`;
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > w) p.vx *= -1;
+                    if (p.y < 0 || p.y > h) p.vy *= -1;
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const q = particles[j];
+                        const dx = p.x - q.x, dy = p.y - q.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.strokeStyle = colorFor(p, (1 - dist / 140) * 0.12);
+                            ctx.lineWidth = 0.6;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.stroke();
+                        }
+                    }
+
+                    ctx.fillStyle = colorFor(p, 0.45);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                if (!reduceMotion) requestAnimationFrame(draw);
+            }
+
+            resize();
+            makeParticles();
+            draw();
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    resize();
+                    makeParticles();
+                    if (reduceMotion) draw();
+                }, 200);
+            });
+        })();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        const progressBar = document.getElementById('reading-progress');
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        }
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('contact-name').value.trim();
+                const email = document.getElementById('contact-email').value.trim();
+                const type = document.getElementById('contact-type').value;
+                const budget = document.getElementById('contact-budget').value;
+                const deadline = document.getElementById('contact-deadline').value;
+                const message = document.getElementById('contact-message').value.trim();
+
+                const subject = `Project Inquiry — ${type || 'General'}`;
+                const bodyLines = [
+                    `Name: ${name}`,
+                    `Email: ${email}`,
+                    `Project Type: ${type}`,
+                    `Budget Range: ${budget || 'Not specified'}`,
+                    `Deadline: ${deadline || 'Not specified'}`,
+                    '',
+                    'Project Details:',
+                    message
+                ];
+                const mailtoLink = `mailto:kumooochann@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+                window.location.href = mailtoLink;
+            });
+        }
+
+        const reviewForm = document.getElementById('review-form');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const rating = reviewForm.querySelector('input[name="rating"]:checked');
+                const name = document.getElementById('review-name').value.trim();
+                const message = document.getElementById('review-message').value.trim();
+
+                if (!rating) {
+                    alert('Please select a star rating before submitting.');
+                    return;
+                }
+
+                const stars = '★'.repeat(Number(rating.value)) + '☆'.repeat(5 - Number(rating.value));
+                const subject = `Portfolio Review — ${rating.value} Stars`;
+                const body = `Rating: ${stars} (${rating.value}/5)\n\nName: ${name}\n\nReview:\n${message}`;
+                const mailtoLink = `mailto:kumooochann@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoLink;
+            });
+        }
+    </script>
+</body>
+</html>
